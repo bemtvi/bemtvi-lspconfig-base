@@ -1,6 +1,6 @@
 -- Runnable demo for nxvim-lspconfig.
 --
---     NXVIM_CONFIG=examples cargo run -p nxvim -- examples/sample.lua
+--     NXVIM_CONFIG=examples nxvim examples/sample.lua
 --
 -- It enables lua-language-server for this buffer. Install it first
 -- (https://luals.github.io/#install) — if the binary isn't on $PATH the server

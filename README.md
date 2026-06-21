@@ -153,12 +153,12 @@ server of your own — this plugin just bundles the common ones with good defaul
 This repo ships a runnable demo (enables `lua_ls` for a sample file):
 
 ```sh
-NXVIM_CONFIG=examples cargo run -p nxvim -- examples/sample.lua
+NXVIM_CONFIG=examples nxvim examples/sample.lua
 ```
 
-(run from a checkout next to your nxvim checkout, or point `dir=` at this repo —
-see `examples/init.lua`). With `lua-language-server` installed: hover with `K`,
-jump with `gd`, rename with `grn`.
+(run from a checkout of this repo — `examples/init.lua` loads the plugin straight
+from the repo root via a `dir=` spec). With `lua-language-server` installed: hover
+with `K`, jump with `gd`, rename with `grn`.
 
 ## Tests
 
