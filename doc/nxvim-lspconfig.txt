@@ -10,6 +10,7 @@ Table of Contents                          *nxvim-lspconfig-table-of-contents*
 5. Keymaps                                           |nxvim-lspconfig-keymaps|
 6. Bundled servers                           |nxvim-lspconfig-bundled-servers|
 7. Trying it locally                       |nxvim-lspconfig-trying-it-locally|
+
 Ready-made `nx.lsp` configurations for the most widely-used language servers
 — a native port of nvim-lspconfig for nxvim.
 
