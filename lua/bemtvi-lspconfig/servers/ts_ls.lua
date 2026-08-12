@@ -24,5 +24,5 @@ return {
     "package.json",
     ".git",
   },
-  init_options = { hostInfo = "nxvim" },
+  init_options = { hostInfo = "bemtvi" },
 }

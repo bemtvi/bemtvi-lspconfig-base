@@ -1,4 +1,4 @@
--- A sample Lua module for the nxvim-lspconfig demo. Open it with
+-- A sample Lua module for the bemtvi-lspconfig demo. Open it with
 -- lua-language-server installed and try the LSP keys — each is meaningful here:
 --
 --   K            hover — rest on `Account`, `balance`, or `deposit` for the
@@ -56,7 +56,7 @@ end
 -- A short script exercising the type above. Hover any local (`K`) to see the
 -- type lua_ls infers; toggle inlay hints (`<leader>lh`) to see the parameter
 -- names and inferred types rendered inline.
-local acct = Account.new("nxvim", 100)
+local acct = Account.new("bemtvi", 100)
 acct:deposit(50)
 acct:withdraw(30)
 

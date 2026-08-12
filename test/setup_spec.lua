@@ -1,81 +1,81 @@
--- setup() / enable() registration logic, asserted against nx.lsp's config registry.
+-- setup() / enable() registration logic, asserted against btv.lsp's config registry.
 -- Hermetic: no real language server is spawned (test mode has no LSP transport) — we
 -- only check that the right config layers were accumulated and marked enabled.
 
-local lspconfig = require("nxvim-lspconfig")
+local lspconfig = require("bemtvi-lspconfig")
 
 -- Wipe the engine's LSP registry so each test starts clean (these are the same
--- tables nx.lsp accumulates into; see crates/nxvim-lua/src/prelude/lsp.lua).
+-- tables btv.lsp accumulates into; see crates/bemtvi-lua/src/prelude/lsp.lua).
 local function reset()
-  nx.lsp._config = {}
-  nx.lsp._enabled = {}
+  btv.lsp._config = {}
+  btv.lsp._enabled = {}
 end
 
-nx.test.describe("nxvim-lspconfig.setup", function()
-  nx.test.before_each(reset)
+btv.test.describe("bemtvi-lspconfig.setup", function()
+  btv.test.before_each(reset)
 
-  nx.test.it("enables a list of servers with their bundled cmd", function()
+  btv.test.it("enables a list of servers with their bundled cmd", function()
     lspconfig.setup({ servers = { "lua_ls", "bashls" } })
-    nx.test.expect(nx.lsp._enabled["lua_ls"]).to_be(true)
-    nx.test.expect(nx.lsp._enabled["bashls"]).to_be(true)
+    btv.test.expect(btv.lsp._enabled["lua_ls"]).to_be(true)
+    btv.test.expect(btv.lsp._enabled["bashls"]).to_be(true)
     -- The bundled preset is registered, so the engine knows how to spawn it.
-    nx.test.expect(nx.lsp._config["lua_ls"].cmd[1]).to_be("lua-language-server")
+    btv.test.expect(btv.lsp._config["lua_ls"].cmd[1]).to_be("lua-language-server")
   end)
 
-  nx.test.it("merges a per-server override over the bundled preset", function()
+  btv.test.it("merges a per-server override over the bundled preset", function()
     lspconfig.setup({
       servers = {
-        lua_ls = { settings = { Lua = { diagnostics = { globals = { "nx" } } } } },
+        lua_ls = { settings = { Lua = { diagnostics = { globals = { "btv" } } } } },
       },
     })
-    local cfg = nx.lsp._config["lua_ls"]
+    local cfg = btv.lsp._config["lua_ls"]
     -- override applied…
-    nx.test.expect(cfg.settings.Lua.diagnostics.globals[1]).to_be("nx")
+    btv.test.expect(cfg.settings.Lua.diagnostics.globals[1]).to_be("btv")
     -- …and the bundled defaults are still there (deep merge, not replace).
-    nx.test.expect(cfg.settings.Lua.hint.enable).to_be(true)
-    nx.test.expect(nx.lsp._enabled["lua_ls"]).to_be(true)
+    btv.test.expect(cfg.settings.Lua.hint.enable).to_be(true)
+    btv.test.expect(btv.lsp._enabled["lua_ls"]).to_be(true)
   end)
 
-  nx.test.it("skips a server whose map value is false", function()
+  btv.test.it("skips a server whose map value is false", function()
     lspconfig.setup({ servers = { "gopls", eslint = false } })
-    nx.test.expect(nx.lsp._enabled["gopls"]).to_be(true)
-    nx.test.expect(nx.lsp._enabled["eslint"]).to_be_nil()
+    btv.test.expect(btv.lsp._enabled["gopls"]).to_be(true)
+    btv.test.expect(btv.lsp._enabled["eslint"]).to_be_nil()
   end)
 
-  nx.test.it('"all" enables every bundled server', function()
+  btv.test.it('"all" enables every bundled server', function()
     lspconfig.setup({ servers = "all" })
     for _, name in ipairs(lspconfig.servers) do
-      nx.test.expect(nx.lsp._enabled[name]).to_be(true)
+      btv.test.expect(btv.lsp._enabled[name]).to_be(true)
     end
   end)
 
-  nx.test.it("an unknown server fails loud", function()
-    nx.test.expect(function()
+  btv.test.it("an unknown server fails loud", function()
+    btv.test.expect(function()
       lspconfig.setup({ servers = { "nonexistent_ls" } })
     end).to_error("unknown server")
   end)
 
-  nx.test.it("global capabilities + settings land on the '*' layer", function()
+  btv.test.it("global capabilities + settings land on the '*' layer", function()
     lspconfig.setup({
       servers = { "lua_ls" },
       capabilities = { workspace = { configuration = true } },
       settings = { telemetry = { enable = false } },
     })
-    nx.test.expect(nx.lsp._config["*"].capabilities.workspace.configuration).to_be(true)
-    nx.test.expect(nx.lsp._config["*"].settings.telemetry.enable).to_be(false)
+    btv.test.expect(btv.lsp._config["*"].capabilities.workspace.configuration).to_be(true)
+    btv.test.expect(btv.lsp._config["*"].settings.telemetry.enable).to_be(false)
   end)
 
-  nx.test.it("installs an on_attach on '*' when keymaps are on (the default)", function()
+  btv.test.it("installs an on_attach on '*' when keymaps are on (the default)", function()
     lspconfig.setup({ servers = { "lua_ls" } })
-    nx.test.expect(type(nx.lsp._config["*"].on_attach)).to_be("function")
+    btv.test.expect(type(btv.lsp._config["*"].on_attach)).to_be("function")
   end)
 
-  nx.test.it("installs no on_attach when keymaps are off and nothing else asks", function()
+  btv.test.it("installs no on_attach when keymaps are off and nothing else asks", function()
     lspconfig.setup({ servers = { "lua_ls" }, keymaps = false })
-    nx.test.expect((nx.lsp._config["*"] or {}).on_attach).to_be_nil()
+    btv.test.expect((btv.lsp._config["*"] or {}).on_attach).to_be_nil()
   end)
 
-  nx.test.it("composes a user on_attach even with keymaps off", function()
+  btv.test.it("composes a user on_attach even with keymaps off", function()
     local ran = false
     lspconfig.setup({
       servers = { "lua_ls" },
@@ -84,16 +84,16 @@ nx.test.describe("nxvim-lspconfig.setup", function()
         ran = true
       end,
     })
-    local on_attach = nx.lsp._config["*"].on_attach
-    nx.test.expect(type(on_attach)).to_be("function")
+    local on_attach = btv.lsp._config["*"].on_attach
+    btv.test.expect(type(on_attach)).to_be("function")
     -- Calling it runs the user hook (a fake client/bufnr is enough here).
     on_attach({ name = "lua_ls", server_capabilities = {} }, 0)
-    nx.test.expect(ran).to_be_truthy()
+    btv.test.expect(ran).to_be_truthy()
   end)
 
-  nx.test.it("M.enable adds servers incrementally", function()
+  btv.test.it("M.enable adds servers incrementally", function()
     lspconfig.enable("marksman")
-    nx.test.expect(nx.lsp._enabled["marksman"]).to_be(true)
-    nx.test.expect(nx.lsp._config["marksman"].cmd[1]).to_be("marksman")
+    btv.test.expect(btv.lsp._enabled["marksman"]).to_be(true)
+    btv.test.expect(btv.lsp._config["marksman"].cmd[1]).to_be("marksman")
   end)
 end)

@@ -1,4 +1,4 @@
--- nxvim `nx.lsp.enable("tailwindcss")` preset — resolved off the runtimepath by nx.lsp's
+-- bemtvi `btv.lsp.enable("tailwindcss")` preset — resolved off the runtimepath by btv.lsp's
 -- bundled-preset reader (`lsp/<name>.lua`). The canonical config table lives in
--- `lua/nxvim-lspconfig/servers/tailwindcss.lua` so it is also `require`-able and testable.
-return require("nxvim-lspconfig.servers.tailwindcss")
+-- `lua/bemtvi-lspconfig/servers/tailwindcss.lua` so it is also `require`-able and testable.
+return require("bemtvi-lspconfig.servers.tailwindcss")

@@ -1,10 +1,10 @@
--- Runnable demo for nxvim-lspconfig — a guided tour of setup().
+-- Runnable demo for bemtvi-lspconfig — a guided tour of setup().
 --
---     NXVIM_CONFIG=examples nxvim examples/sample.lua
+--     BEMTVI_CONFIG=examples bemtvi examples/sample.lua
 --
 -- Run it from a checkout of this repo. It enables lua-language-server for the
 -- sample buffer — install that first (https://luals.github.io/#install). If the
--- binary isn't on $PATH the server start fails LOUD with a notification: nxvim
+-- binary isn't on $PATH the server start fails LOUD with a notification: bemtvi
 -- never pretends a missing server works.
 --
 -- With lua_ls installed, open examples/sample.lua and try the LSP keys it
@@ -14,14 +14,14 @@
 vim.g.mapleader = " "
 
 -- Load the plugin straight from this repo (a local-dev spec: `dir` is never
--- cloned). A real config would declare `{ "davidrios/nxvim-lspconfig", config = … }`
+-- cloned). A real config would declare `{ "davidrios/bemtvi-lspconfig", config = … }`
 -- and run `:PluginSync` — see the README's Install section.
-nx.plugins({
+btv.plugins({
   {
-    name = "nxvim-lspconfig",
+    name = "bemtvi-lspconfig",
     dir = vim.fn.expand("<sfile>:p:h:h"), -- the repo root (this file's grandparent dir)
     config = function()
-      local lspconfig = require("nxvim-lspconfig")
+      local lspconfig = require("bemtvi-lspconfig")
 
       lspconfig.setup({
         -- ----- which servers to turn on ------------------------------------
@@ -44,7 +44,7 @@ nx.plugins({
           lua_ls = {
             settings = {
               Lua = {
-                diagnostics = { globals = { "nx", "vim" } },
+                diagnostics = { globals = { "btv", "vim" } },
                 hint = { enable = true, arrayIndex = "Enable" },
               },
             },
@@ -73,12 +73,12 @@ nx.plugins({
         -- Runs whenever any server attaches to a buffer — a good hook for
         -- buffer-local maps or, here, a confirmation notification.
         on_attach = function(client, bufnr)
-          nx.notify(("LSP attached: %s (buf %d)"):format(client.name, bufnr))
+          btv.notify(("LSP attached: %s (buf %d)"):format(client.name, bufnr))
         end,
 
         -- ----- convenience toggles ------------------------------------------
         -- Install the default LSP keymaps (grn / gra / grr / gri / grt / gO /
-        -- <leader>ls / <leader>lf / <leader>lh) on top of nxvim's built-in
+        -- <leader>ls / <leader>lf / <leader>lh) on top of bemtvi's built-in
         -- gd / gD / gr / K / <C-k>. Set to false to manage maps yourself.
         keymaps = true,
 
@@ -92,11 +92,11 @@ nx.plugins({
       --   • lspconfig.enable({ "jsonls", "yamlls" })  -- same shapes, no repeat
       --                                                  of the global layer
       --
-      --   • the native path — skip setup() entirely and drive nx.lsp directly,
+      --   • the native path — skip setup() entirely and drive btv.lsp directly,
       --     since the presets already live on the runtimepath as lsp/<name>.lua:
       --
-      --       nx.lsp.config("taplo", { … })   -- optional overrides
-      --       nx.lsp.enable("taplo")
+      --       btv.lsp.config("taplo", { … })   -- optional overrides
+      --       btv.lsp.enable("taplo")
     end,
   },
 })

@@ -1,22 +1,22 @@
-<!-- DO NOT EDIT doc/nxvim-lspconfig.txt BY HAND. It is generated from this file by
+<!-- DO NOT EDIT doc/bemtvi-lspconfig.txt BY HAND. It is generated from this file by
 panvimdoc — run `scripts/gen-vimdoc.sh` after editing. -->
 
-Ready-made `nx.lsp` configurations for the most widely-used language servers — a native port of
-nvim-lspconfig for nxvim.
+Ready-made `btv.lsp` configurations for the most widely-used language servers — a native port of
+nvim-lspconfig for bemtvi.
 
 Each server ships as a curated config table (command, filetypes, root markers, and sensible default
-settings) that nxvim's own `nx.lsp` control surface understands directly. There is NO neovim
-compatibility layer — the presets are plain data driven onto the documented `nx.lsp.*` API, so
+settings) that bemtvi's own `btv.lsp` control surface understands directly. There is NO neovim
+compatibility layer — the presets are plain data driven onto the documented `btv.lsp.*` API, so
 nothing blocks and nothing is intercepted.
 
 This plugin only configures servers; it does not install them. Install the language server binaries
-yourself (see Bundled servers for each install command). A missing binary fails LOUD — nxvim never
+yourself (see Bundled servers for each install command). A missing binary fails LOUD — bemtvi never
 pretends a server that isn't there is working.
 
-<!-- Passed through verbatim so `:help nxvim-lspconfig` lands on this page
+<!-- Passed through verbatim so `:help bemtvi-lspconfig` lands on this page
      (panvimdoc derives per-section tags but no bare project tag). -->
 ```vimdoc
-                                                              *nxvim-lspconfig*
+                                                              *bemtvi-lspconfig*
 ```
 
 # Install
@@ -24,11 +24,11 @@ pretends a server that isn't there is working.
 Declare it with the built-in `:Plugins` manager, then call `setup()` with the servers you want:
 
 ```lua
-nx.plugins({
+btv.plugins({
   {
-    "davidrios/nxvim-lspconfig",
+    "davidrios/bemtvi-lspconfig",
     config = function()
-      require("nxvim-lspconfig").setup({
+      require("bemtvi-lspconfig").setup({
         servers = { "lua_ls", "pyright", "gopls", "rust_analyzer" },
       })
     end,
@@ -41,10 +41,10 @@ attaches automatically.
 
 # Setup
 
-`require("nxvim-lspconfig").setup(opts)` is the one-call entry point:
+`require("bemtvi-lspconfig").setup(opts)` is the one-call entry point:
 
 ```lua
-require("nxvim-lspconfig").setup({
+require("bemtvi-lspconfig").setup({
   -- Which servers to enable. One of:
   --   "all"                          every bundled server
   --   { "lua_ls", "pyright" }        a list of names (bundled defaults)
@@ -64,7 +64,7 @@ require("nxvim-lspconfig").setup({
 })
 ```
 
-`setup()` is additive — call `require("nxvim-lspconfig").enable({ … })` later to turn on more
+`setup()` is additive — call `require("bemtvi-lspconfig").enable({ … })` later to turn on more
 servers with the same accepted shapes (`"all"`, a list, a name→overrides map, or a mix with
 `false` to skip).
 
@@ -73,7 +73,7 @@ servers with the same accepted shapes (`"all"`, a list, a name→overrides map, 
 Pass a table as the server's value to deep-merge your changes over the bundled preset:
 
 ```lua
-require("nxvim-lspconfig").setup({
+require("bemtvi-lspconfig").setup({
   servers = {
     "lua_ls",
     gopls = {
@@ -88,20 +88,20 @@ require("nxvim-lspconfig").setup({
 
 # The native path
 
-Because the presets live on the plugin's runtimepath as `lsp/<name>.lua`, nxvim's `nx.lsp` finds
+Because the presets live on the plugin's runtimepath as `lsp/<name>.lua`, bemtvi's `btv.lsp` finds
 them on its own. Once the plugin is installed you can skip `setup()` entirely and use the engine API
 directly:
 
 ```lua
-nx.lsp.config("rust_analyzer", {                     -- optional overrides
+btv.lsp.config("rust_analyzer", {                     -- optional overrides
   settings = { ["rust-analyzer"] = { check = { command = "clippy" } } },
 })
-nx.lsp.enable("rust_analyzer")
+btv.lsp.enable("rust_analyzer")
 ```
 
 # Keymaps
 
-nxvim already installs the core LSP maps buffer-local when a server attaches: `gd`, `gD`, `gr`, `K`,
+bemtvi already installs the core LSP maps buffer-local when a server attaches: `gd`, `gD`, `gr`, `K`,
 and `<C-k>` (insert). With `keymaps = true` (the default) this plugin adds the rest of the
 now-standard set on top, at the overridable rung so your own maps always win:
 
@@ -148,7 +148,7 @@ vimls          Vimscript               npm i -g vim-language-server
 yamlls         YAML                    npm i -g yaml-language-server
 ```
 
-Don't see one you need? You can still point `nx.lsp.config` / `nx.lsp.enable` at any server of your
+Don't see one you need? You can still point `btv.lsp.config` / `btv.lsp.enable` at any server of your
 own — this plugin just bundles the common ones with good defaults.
 
 # Trying it locally
@@ -156,7 +156,7 @@ own — this plugin just bundles the common ones with good defaults.
 This repo ships a runnable demo (enables `lua_ls` for a sample file):
 
 ```sh
-NXVIM_CONFIG=examples nxvim examples/sample.lua
+BEMTVI_CONFIG=examples bemtvi examples/sample.lua
 ```
 
 (run from a checkout of this repo). With `lua-language-server` installed: hover with `K`, jump with
