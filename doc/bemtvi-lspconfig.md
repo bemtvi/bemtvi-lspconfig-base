@@ -26,7 +26,7 @@ Declare it with the built-in `:Plugins` manager, then call `setup()` with the se
 ```lua
 btv.plugins({
   {
-    "davidrios/bemtvi-lspconfig",
+    "bemtvi/bemtvi-lspconfig",
     config = function()
       require("bemtvi-lspconfig").setup({
         servers = { "lua_ls", "pyright", "gopls", "rust_analyzer" },

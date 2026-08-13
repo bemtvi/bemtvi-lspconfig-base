@@ -1,9 +1,9 @@
 # bemtvi-lspconfig
 
-Ready-made [`btv.lsp`](https://github.com/davidrios/bemtvi) configurations for the
+Ready-made [`btv.lsp`](https://github.com/bemtvi/bemtvi) configurations for the
 most widely-used language servers — a native port of
 [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) for
-[bemtvi](https://github.com/davidrios/bemtvi).
+[bemtvi](https://github.com/bemtvi/bemtvi).
 
 Each server ships as a curated config table (command, filetypes, root markers, and
 sensible default settings) that bemtvi's own `btv.lsp` control surface understands
@@ -23,7 +23,7 @@ you want, and `:PluginSync`:
 ```lua
 btv.plugins({
   {
-    "davidrios/bemtvi-lspconfig",
+    "bemtvi/bemtvi-lspconfig",
     config = function()
       require("bemtvi-lspconfig").setup({
         servers = { "lua_ls", "pyright", "gopls", "rust_analyzer" },

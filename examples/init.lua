@@ -14,7 +14,7 @@
 vim.g.mapleader = " "
 
 -- Load the plugin straight from this repo (a local-dev spec: `dir` is never
--- cloned). A real config would declare `{ "davidrios/bemtvi-lspconfig", config = … }`
+-- cloned). A real config would declare `{ "bemtvi/bemtvi-lspconfig", config = … }`
 -- and run `:PluginSync` — see the README's Install section.
 btv.plugins({
   {

@@ -37,7 +37,7 @@ servers you want:
 >lua
     btv.plugins({
       {
-        "davidrios/bemtvi-lspconfig",
+        "bemtvi/bemtvi-lspconfig",
         config = function()
           require("bemtvi-lspconfig").setup({
             servers = { "lua_ls", "pyright", "gopls", "rust_analyzer" },
