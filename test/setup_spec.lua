@@ -50,9 +50,11 @@ btv.test.describe("bemtvi-lspconfig.setup", function()
   end)
 
   btv.test.it("an unknown server fails loud", function()
-    btv.test.expect(function()
-      lspconfig.setup({ servers = { "nonexistent_ls" } })
-    end).to_error("unknown server")
+    btv.test
+      .expect(function()
+        lspconfig.setup({ servers = { "nonexistent_ls" } })
+      end)
+      .to_error("unknown server")
   end)
 
   btv.test.it("global capabilities + settings land on the '*' layer", function()

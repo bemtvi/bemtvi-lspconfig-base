@@ -158,7 +158,10 @@ end
 local function register(name, override)
   if not KNOWN[name] then
     error(
-      "bemtvi-lspconfig: unknown server '" .. tostring(name) .. "'. Bundled servers: " .. table.concat(M.servers, ", "),
+      "bemtvi-lspconfig: unknown server '"
+        .. tostring(name)
+        .. "'. Bundled servers: "
+        .. table.concat(M.servers, ", "),
       2
     )
   end
