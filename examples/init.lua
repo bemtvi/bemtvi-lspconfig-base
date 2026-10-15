@@ -11,7 +11,7 @@
 -- documents at the top of the file: K, gd, grr, grn, gra, gO, <leader>lf,
 -- <leader>lh.
 
-vim.g.mapleader = " "
+btv.g.mapleader = " "
 
 -- Load the plugin straight from this repo (a local-dev spec: `dir` is never
 -- cloned). A real config would declare `{ "bemtvi/bemtvi-lspconfig", config = … }`
@@ -19,7 +19,7 @@ vim.g.mapleader = " "
 btv.plugins({
   {
     name = "bemtvi-lspconfig",
-    dir = vim.fn.expand("<sfile>:p:h:h"), -- the repo root (this file's grandparent dir)
+    dir = btv.expand("<sfile>:p:h:h"), -- the repo root (this file's grandparent dir)
     config = function()
       local lspconfig = require("bemtvi-lspconfig")
 

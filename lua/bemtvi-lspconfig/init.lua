@@ -166,7 +166,7 @@ local function register(name, override)
     )
   end
   local base = require("bemtvi-lspconfig.servers." .. name)
-  btv.lsp.config(name, vim.tbl_deep_extend("force", base, override or {}))
+  btv.lsp.config(name, btv.tbl.deep_extend("force", base, override or {}))
 end
 
 -- Walk a `servers` value, calling fn(name, override) for each server to enable.
